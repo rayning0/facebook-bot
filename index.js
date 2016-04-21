@@ -33,7 +33,16 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
+            if (text === 'Generic') {
+                sendGenericMessage(sender)
+                continue
+            }
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        }
+        if (event.postback) {
+            text = JSON.stringify(event.postback)
+            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+            continue
         }
     }
     res.sendStatus(200)
@@ -49,6 +58,59 @@ app.listen(app.get('port'), function() {
 function sendTextMessage(sender, text) {
     messageData = {
         text:text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+function sendGenericMessage(sender) {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "Raymond's Naps: Mobile App",
+                    "subtitle": "Home screen",
+                    "image_url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%201.png",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%201.png",
+                        "title": "Home Image"
+                    }, {
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for first element in a generic bubble",
+                    }],
+                }, {
+                    "title": "Second card",
+                    "subtitle": "Element #2 of an hscroll",
+                    "image_url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%204.png",
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%204.png",
+                        "title": "Frogs Legs and Pork Chops"
+                    }, {
+                        "type": "postback",
+                        "title": "Postback",
+                        "payload": "Payload for second element in a generic bubble",
+                    }],
+                }]
+            }
+        }
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
