@@ -5,6 +5,14 @@ var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
 
+var phrases = ['yo momma!', 'you do that in bed.', 'would you like frogs with that?',
+  'I love you too! Wait...I thought you were someone else.',
+  'my dead grandpa just told me he found that joke funny.',
+  "I got it from my Daddy, I got it from my Daddy! I feel nice, you look nice. You'll be my curry, I'll be your rice",
+  'vass iss your problem? Ze Doktor iss IN!',
+  "stop being so negative. I mean positive. I mean indecisive. Oh hell, I'll shut up now.",
+  'do you know any lady bots who like big botties?']
+
 app.set('port', (process.env.PORT || 5000))
 
 // Process application/x-www-form-urlencoded
@@ -37,11 +45,12 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            sendTextMessage(sender, "You said: " + text.substring(0, 200))
+            j = Math.floor((Math.random() * 10)); // random # from 0-9
+            sendTextMessage(sender, text.substring(0, 200) + '? Well, ' + phrases[j])
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
-            sendTextMessage(sender, "Postback: "+ text.substring(0, 200), token)
+            sendTextMessage(sender, "Postback: " + text.substring(0, 200), token)
             continue
         }
     }
