@@ -85,10 +85,10 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "Raymond's Naps: Mobile App",
                     "subtitle": "Home screen",
-                    "image_url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%201.png",
+                    "image_url": "https://raw.githubusercontent.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/master/Screen%20Shot%201.png",
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%201.png",
+                        "url": "https://raw.githubusercontent.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/master/Screen%20Shot%201.png",
                         "title": "Home Image"
                     }, {
                         "type": "postback",
@@ -98,10 +98,10 @@ function sendGenericMessage(sender) {
                 }, {
                     "title": "Second card",
                     "subtitle": "Element #2 of an hscroll",
-                    "image_url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%204.png",
+                    "image_url": "https://raw.githubusercontent.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/master/Screen%20Shot%204.png",
                     "buttons": [{
                         "type": "web_url",
-                        "url": "https://github.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/blob/master/Screen%20Shot%204.png",
+                        "url": "https://raw.githubusercontent.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/master/Screen%20Shot%204.png",
                         "title": "Frogs Legs and Pork Chops"
                     }, {
                         "type": "postback",
