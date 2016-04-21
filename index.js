@@ -33,15 +33,15 @@ app.post('/webhook/', function (req, res) {
         sender = event.sender.id
         if (event.message && event.message.text) {
             text = event.message.text
-            if (text === 'Generic') {
+            if (text === 'generic') {
                 sendGenericMessage(sender)
                 continue
             }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            sendTextMessage(sender, "You said: " + text.substring(0, 200))
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
-            sendTextMessage(sender, "Postback received: "+text.substring(0, 200), token)
+            sendTextMessage(sender, "Postback: "+ text.substring(0, 200), token)
             continue
         }
     }
@@ -93,11 +93,11 @@ function sendGenericMessage(sender) {
                     }, {
                         "type": "postback",
                         "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Log in, dude!",
                     }],
                 }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
+                    "title": "Find Frogs Legs & Pork Chops",
+                    "subtitle": "A joke",
                     "image_url": "https://raw.githubusercontent.com/rayning0/iPhone-Sample-App---iRise-Studio-MX/master/Screen%20Shot%204.png",
                     "buttons": [{
                         "type": "web_url",
@@ -106,7 +106,7 @@ function sendGenericMessage(sender) {
                     }, {
                         "type": "postback",
                         "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
+                        "payload": "Would you like frogs with that burger?",
                     }],
                 }]
             }
